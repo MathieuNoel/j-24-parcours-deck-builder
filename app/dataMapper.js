@@ -52,6 +52,54 @@ const dataMapper = {
     const query = 'SELECT * FROM "card" WHERE "name" = $1';
     const results = await database.query(query, [nameCardAdded]);
     return results.rows[0];
+  },
+
+  async findCardsByLevel(level) {
+    const query ='SELECT * FROM "card" WHERE "level" = $1';
+    const results = await database.query(query, [level]);
+    return results.rows;
+  },
+
+  async findCardsByDirectionAndValue({direction, value}) {
+        const query = {
+      text : `SELECT * FROM "card" WHERE 
+      $1 = 'north' AND "value_north" >= $2 
+      OR $1 = 'east' AND "value_east" >= $2 
+      OR $1 = 'south' AND "value_south" >= $2 
+      OR $1 = 'west' AND "value_west" >= $2`,
+      values : [direction, value] 
+    }
+    const results =await database.query(query);
+    return results.rows;
+        
+  },
+
+  // async findCardsByDirectionEast(value) {
+  //   const query =`SELECT * FROM "card" WHERE value_east = $1`;
+  //   const results = await database.query(query, [value]);
+  //   return results.rows;
+  // },
+
+  // async findCardsByDirectionSouth(value) {
+  //   const query =`SELECT * FROM "card" WHERE value_south = $1`;
+  //   const results = await database.query(query, [value]);
+  //   return results.rows;
+  // },
+
+  // async findCardsByDirectionWest(value) {
+  //   const query =`SELECT * FROM "card" WHERE value_west = $1`;
+  //   const results = await database.query(query, [value]);
+  //   return results.rows;
+  // },
+
+  async searchInName(name) {
+    const rename = `%${name}%`
+    const query = {
+      text : `SELECT * FROM "card" WHERE "name" ILIKE $1`,
+      values : [rename]
+    }
+    const results = await database.query(query);
+    return results.rows;
   }
   
 };

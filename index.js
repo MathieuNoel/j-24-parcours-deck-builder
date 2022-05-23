@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 dotenv.config();
 
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 1234;
 const router = require('./app/router');
 
 const app = express();
@@ -31,7 +31,12 @@ app.use(
   })
 );
 
-
+app.use((req, res, next) => {
+  if(!req.session.deck){
+  req.session.deck = [];
+  }
+  next()
+});
 
 app.use(router);
 

@@ -1,19 +1,8 @@
 const dataMapper = require('../dataMapper');
 
 const createDeck = {
-  /**
-   * show the deck and creat an array in cookie if does not exist
-   * @param {request} req 
-   * @param {response} res 
-   * @param {next} next 
-   */
-  deck: (req, res, next) => {
-    if(!req.session.deck){
-      const deck = req.session.deck = [];
-      res.render("myDeck", {deck});
-    }
-    next()
-  },
+ 
+   
 
   /**
    * show teh deck when the user click on Decks in the header nav
@@ -37,15 +26,14 @@ const createDeck = {
       try {
         const card = await dataMapper.findOneCardByName(nameCardAdded);
         if( req.session.deck.length < 5){
-        req.session.deck.push(card);
-        console.log(req.session.deck)
+        req.session.deck.push(card);        
       }
         res.render('myDeck', {cards : req.session.deck})
       } catch (error) {
         res.status(500).send(error);
       }
     } else {
-      res.redirect('cardList');
+      res.redirect('/myDeck');
     }
 
     },
