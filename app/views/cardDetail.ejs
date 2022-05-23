@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+
+
+<div class="cardsContainer">
+  <div class="card">
+    
+      <img src="/visuals/<%= card.visual_name %>" alt="<%= card.name %> illustration">
+      <p class="cardName"><%= card.name %></p>
+  
+      <a class="link--addCard" title="Ajouter au deck" href="/myDeck/add/<%= card.name %>">[ + ]</a>
+      <a class="link--removeCard" title="Retirer du deck" href="/myDeck/remove/<%= card.name %>">[ - ]</a>    </div>
+
+      <div >
+          <p>name : <%= card.name%></p>
+          <p>element : <%= card.element %></p>
+          <p>value_north : <%= card.value_north %></p>
+          <p>value_east : <%= card.value_east %></p>
+          <p>value_south : <%= card.value_south %></p>
+          <p>value_west : <%= card.value_west %></p>
+          <p>level : <%= card.level %></p>
+      </div>
+</div>
+  
+    
+
+<%- include('partials/footer') %>
